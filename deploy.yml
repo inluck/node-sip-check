@@ -35,7 +35,7 @@
       command: pm2 delete node-sip-check
       ignore_errors: yes
     - name: Start pm2
-      command: pm2 start {{ current_path }}/server.js --name node-sip-check
+      command: pm2 start {{ current_path }}/index.js --name node-sip-check
     - name: Delete old dir
       shell: rm -rf {{ current_release_path.stdout }}/
       when: current_release_path.stdout != current_path

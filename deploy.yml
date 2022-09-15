@@ -23,7 +23,7 @@
         state=directory
     - name: Clone the repository
       git:
-        repo: git@github.com:inluck/node-sip-check.git
+        repo: https://github.com/inluck/node-sip-check.git
         dest: "{{ release_path }}"
     - name:  Update npm
       ansible.builtin.shell:

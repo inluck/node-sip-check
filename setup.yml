@@ -2,6 +2,7 @@
   become: yes
   become_user: root
   tasks:
+    - raw: apt-get install curl
     - raw: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     - raw: sudo apt update -y
     - raw: sudo apt install nodejs -y

@@ -3,8 +3,11 @@
   become: yes
   become_user: root
   vars:
-    project_path: /var/www/node
+    project_path: /var/www/node/node-sip-check
   tasks:
+    - name: Create project folder
+      ansible.builtin.shell: mkdir "{{ project_path }}"
+      ignore_errors: yes
     - name: Set some variable
       set_fact:
         release_path: "{{ project_path }}/releases/{{ lookup('pipe','date +%Y%m%d%H%M%S') }}"

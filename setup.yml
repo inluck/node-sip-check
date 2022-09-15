@@ -2,4 +2,5 @@
   become: yes
   become_user: root
   roles:
-    - geerlingguy.nodejs
+    - name: geerlingguy.nodejs
+      src: https://github.com/geerlingguy/ansible-role-nodejs

@@ -1,11 +1,7 @@
 - hosts: all
   become: yes
   become_user: root
-  vars:
-    nodejs_version: "18.x"
-    nodejs_npm_global_packages:
-      - name: jslint
-      - name: node-sass
-  roles:
-    - name: geerlingguy.nodejs
-      src: https://github.com/geerlingguy/ansible-role-nodejs
+  tasks:
+    - raw: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    - raw: sudo apt update -y
+    - raw: sudo apt install nodejs -y

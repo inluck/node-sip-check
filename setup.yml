@@ -7,4 +7,3 @@
     - raw: sudo apt update -y
     - raw: sudo apt install nodejs -y
     - raw: mkdir /var/www/node
-      ignore-errors: yes

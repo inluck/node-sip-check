@@ -28,7 +28,7 @@
     - name:  Update npm
       ansible.builtin.shell:
         cmd: npm i
-        chdir: {{ release_path }}
+        chdir: "{{ release_path }}"
     - name: Update symlink
       file:
         src={{ release_path }}

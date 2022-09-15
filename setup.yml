@@ -6,3 +6,5 @@
     - raw: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     - raw: sudo apt update -y
     - raw: sudo apt install nodejs -y
+    - raw: mkdir /var/www/node
+      ignore-errors: yes

@@ -3,6 +3,9 @@
   become_user: root
   vars:
     nodejs_version: "18.x"
+    nodejs_npm_global_packages:
+      - name: jslint
+      - name: node-sass
   roles:
     - name: geerlingguy.nodejs
       src: https://github.com/geerlingguy/ansible-role-nodejs

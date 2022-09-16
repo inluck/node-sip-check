@@ -9,6 +9,7 @@
 ////////////////////////////////////////
 
 require = require("esm")(module/* , options */)
+require('newrelic');
 
 module.exports = require("./main.js")
 

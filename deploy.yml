@@ -3,7 +3,7 @@
   become: yes
   become_user: root
   vars:
-    project_path: /var/www/node/node-sip-check
+    project_path: "/var/www/node/{{ appName }}"
   tasks:
     - name: Create project folder
       ansible.builtin.shell: mkdir "{{ project_path }}"
@@ -26,7 +26,7 @@
         state=directory
     - name: Clone the repository
       git:
-        repo: https://github.com/inluck/node-sip-check.git
+        repo: https://github.com/inluck/node-cap-tf.git
         dest: "{{ release_path }}"
     - name:  Update npm
       ansible.builtin.shell:
@@ -37,11 +37,15 @@
         src={{ release_path }}
         dest={{ current_path }}
         state=link
+    - name: Configure new relic monitoring
+      template:
+       src: templates/newrelic.js.j2
+       dest: "{{ current_path }}/newrelic.js"
     - name: Delete old pm2 process
-      command: pm2 delete node-sip-check
+      command: pm2 delete "{{ appName }}"
       ignore_errors: yes
     - name: Start pm2
-      command: pm2 start {{ current_path }}/index.js --name node-sip-check
+      command: pm2 start {{ current_path }}/index.js --name "{{ appName }}"
     - name: Delete old dir
       shell: rm -rf {{ current_release_path.stdout }}/
       when: current_release_path.stdout != current_path

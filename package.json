@@ -14,6 +14,7 @@
   "dependencies": {
     "esm": "^3.2.25",
     "netcat": "^1.5.0",
+    "newrelic": "^9.0.3",
     "node-netcat": "^1.4.8",
     "query-string": "^6.14.1"
   }

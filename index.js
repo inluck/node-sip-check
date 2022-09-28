@@ -37,8 +37,9 @@ To: sip:monitoring@${server}
 Call-ID: monitoring@${source}
 CSeq: 1 OPTIONS
 `
+        startTime = 0.00
         function onReady() {
-            startTime = performance.now()
+            startTime = performance.now().toPrecision()
         }
         function sipCheck(option) {
             nc.udp()
@@ -48,11 +49,11 @@ CSeq: 1 OPTIONS
                 .send(option, server)
                 .on('ready', onReady)
                 .on('data', function (res) {
-                    endTime = performance.now()
+                    const endTime = performance.now().toPrecision()
                     // console.log(res.data.toString())
                     let regexResult = res.data.toString().search(/^(SIP\/2.0)/)
                     if (regexResult === 0) {
-                        let responseTime = endTime - startTime
+                        const responseTime = endTime - startTime
                         // console.log(`Call to doSomething took ${responseTime.toFixed(3)} milliseconds`)
                         data = `<pingdom_http_custom_check>
                 <status>OK</status>

@@ -69,8 +69,8 @@ CSeq: 1 OPTIONS
                         response.writeHead(200, { 'Content-Type': 'application/xml' })
                         response.end(data)
                     }
+                    nc.close()
                 })
-                nc.close()
         }
 
         sipCheck(option)

@@ -70,6 +70,7 @@ CSeq: 1 OPTIONS
                         response.end(data)
                     }
                 })
+                nc.close()
         }
 
         sipCheck(option)

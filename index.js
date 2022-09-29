@@ -37,32 +37,27 @@ To: sip:monitoring@${server}
 Call-ID: monitoring@${source}
 CSeq: 1 OPTIONS
 `
-        startTime = 0.00
-        function onReady() {
-            startTime = performance.now().toPrecision()
-        }
+
         function sipCheck(option) {
+            const startTime = performance.now().toPrecision()
             nc.udp()
                 .port(5060)
                 .wait(1000)
                 .init()
                 .send(option, server)
-                .on('ready', onReady)
-                .on('data', function (res) {
+                .on('data', function (res, starTime) {
                     const endTime = performance.now().toPrecision()
-                    // console.log(res.data.toString())
-                    let regexResult = res.data.toString().search(/^(SIP\/2.0)/)
+                    const regexResult = res.data.toString().search(/^(SIP\/2.0)/)
                     if (regexResult === 0) {
                         const responseTime = endTime - startTime
-                        // console.log(`Call to doSomething took ${responseTime.toFixed(3)} milliseconds`)
-                        data = `<pingdom_http_custom_check>
+                        const data = `<pingdom_http_custom_check>
                 <status>OK</status>
                 <response_time>${responseTime.toFixed(3)}</response_time>
                 </pingdom_http_custom_check>`
                         response.writeHead(200, { 'Content-Type': 'application/xml' })
                         response.end(data)
                     } else {
-                        data = `<pingdom_http_custom_check>
+                        const data = `<pingdom_http_custom_check>
                 <status>NOTOK</status>
                 <response_time>${responseTime.toFixed(3)}</response_time>
                 </pingdom_http_custom_check>`
@@ -77,8 +72,12 @@ CSeq: 1 OPTIONS
 
     }
     catch (err) {
+        const data = `<pingdom_http_custom_check>
+                <status>UNAVAILABLE</status>
+                <error>${err}</error>
+                </pingdom_http_custom_check>`
         response.writeHead(503, { 'Content-Type': 'application/xml' })
-        response.end("Service Unavailable: " + err)
+        response.end(data)
     }
 })
 

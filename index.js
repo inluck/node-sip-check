@@ -42,7 +42,7 @@ CSeq: 1 OPTIONS
             const startTime = performance.now().toPrecision()
             nc.udp()
                 .port(5060)
-                .wait(1000)
+                .wait(75)
                 .init()
                 .send(option, server)
                 .on('data', function (res, starTime) {

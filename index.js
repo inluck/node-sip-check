@@ -18,7 +18,6 @@ const url = require('url');
 const { performance } = require('perf_hooks');
 
 const NetcatClient = require('netcat/client')
-var nc = new NetcatClient()
 
 const app = http.createServer((request, response) => {
     const queryObject = url.parse(request.url, true).query;
@@ -39,6 +38,7 @@ CSeq: 1 OPTIONS
 `
 
         function sipCheck(option) {
+            var nc = new NetcatClient()
             const startTime = performance.now().toPrecision()
             nc.udp()
                 .port(5060)

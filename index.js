@@ -42,7 +42,7 @@ CSeq: 1 OPTIONS
             const startTime = performance.now().toPrecision()
             nc.udp()
                 .port(5060)
-                .wait(250)
+                .wait(75)
                 .init()
                 .send(option, server)
                 .on('data', function (res, starTime) {
@@ -82,5 +82,7 @@ CSeq: 1 OPTIONS
 })
 
 const PORT = 3002
-app.listen(PORT)
+var server = app.listen(PORT)
+server.setTimeout(100);
+
 console.log(`Server running on port ${PORT}`)
